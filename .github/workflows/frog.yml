@@ -14,6 +14,9 @@ jobs:
       - name: Set timezone
         run: sudo timedatectl set-timezone Europe/Moscow
 
+      - name: Debug local git
+        run: make debug
+
       - name: Update README localy
         run: make update
 

@@ -3,7 +3,7 @@
 # Добавить информацию о репозитории. Никакие дополнительные токены не требуются пока репозиторий открытый.
 DATE:=$(shell date '+%Y-%m-%d %H:%M:%S')
 STARS:=$(shell curl --silent "https://api.github.com/repos/d3QUone/pipes" | jq '.stargazers_count')
-COMMITS:=$(shell git rev-list --count master)
+COMMITS:=$(shell git rev-list --count HEAD)
 
 # Обновить текущий README
 update:
@@ -15,3 +15,10 @@ update:
 	echo "" >> README.md
 	echo "* Звёзд: $(STARS)" >> README.md
 	echo "* Коммитов: $(COMMITS)" >> README.md
+
+debug:
+	git log --oneline
+	echo "--------------------"
+	git rev-list --count HEAD
+	echo "--------------------"
+	git log --oneline | wc -l | bc
