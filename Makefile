@@ -15,10 +15,3 @@ update:
 	echo "" >> README.md
 	echo "* Звёзд: $(STARS)" >> README.md
 	echo "* Коммитов: $(COMMITS)" >> README.md
-
-debug:
-	git log --oneline
-	echo "--------------------"
-	git rev-list --count HEAD
-	echo "--------------------"
-	git log --oneline | wc -l | bc
