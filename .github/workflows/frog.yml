@@ -1,0 +1,16 @@
+name: Test cron job
+
+# Запускать каждую вторую минуту
+on:
+  schedule:
+  - cron: "*/2 * * * *"
+
+jobs:
+  stale:
+    runs-on: ubuntu-18.04
+
+    steps:
+
+    # Runs a single command using the runners shell
+    - name: Run a one-line script
+      run: echo Hello, world!
