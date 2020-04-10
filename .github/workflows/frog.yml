@@ -1,16 +1,31 @@
-name: Test cron job
+name: Worker
 
-# Запускать каждую вторую минуту
+# Запускать каждую минуту
 on:
   schedule:
-  - cron: "*/2 * * * *"
+  - cron: "* * * * *"
 
 jobs:
-  stale:
+  update_myself:
     runs-on: ubuntu-18.04
 
     steps:
+      - uses: actions/checkout@master
 
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      - name: Update README localy
+        run: make update
+
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git commit -m "Auto add changes"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
