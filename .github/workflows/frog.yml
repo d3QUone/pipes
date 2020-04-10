@@ -1,9 +1,8 @@
 name: Worker
 
-# Запускать каждую минуту
 on:
   schedule:
-  - cron: "* * * * *"
+  - cron: "*/5 * * * *"
 
 jobs:
   update_myself:
@@ -12,8 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Set timezone
+        run: sudo timedatectl set-timezone Europe/Moscow
 
       - name: Update README localy
         run: make update
