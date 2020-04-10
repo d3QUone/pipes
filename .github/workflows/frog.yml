@@ -10,6 +10,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
+        with:
+          fetch-depth: 0
 
       - name: Set timezone
         run: sudo timedatectl set-timezone Europe/Moscow
