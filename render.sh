@@ -5,7 +5,6 @@
 META=$(curl --silent "https://api.github.com/repos/d3QUone/pipes")
 STAR_COUNT=$(echo ${META} | jq '.stargazers_count' | bc)
 ISSUES_COUNT=$(echo ${META} | jq '.open_issues' | bc)
-COMMITS_COUNT=$(git rev-list --count HEAD | bc)
 
 # Отрендерить новый шаблон (только данные, без времени)
 TEMP_FILE=current_run.md
@@ -16,7 +15,6 @@ touch ${TEMP_FILE}
 touch -a ${LAST_FILE}
 
 echo "* Звёзд: ${STAR_COUNT}" >> ${TEMP_FILE}
-echo "* Коммитов: ${COMMITS_COUNT}" >> ${TEMP_FILE}
 if [ ${ISSUES_COUNT} -gt 0 ]
 then
     echo "* Открытых задач: ${ISSUES_COUNT}" >> ${TEMP_FILE}
