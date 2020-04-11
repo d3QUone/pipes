@@ -3,6 +3,8 @@ name: Worker
 on:
   schedule:
   - cron: "*/5 * * * *"
+  issues:
+    types: [opened, closed, reopened]
 
 jobs:
   update_myself:
