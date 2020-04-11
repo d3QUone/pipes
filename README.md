@@ -15,9 +15,8 @@
 
 Источник: https://help.github.com/en/actions/getting-started-with-github-actions/about-github-actions#usage-limits
 
-## Последнее обновление 2020-04-11 15:17:36
+## Последнее обновление 2020-04-11 15:19:09
 
-Всего коммитов: 154
+Всего коммитов: 155
 
 * Звёзд: 12
-* Открытых задач: 1
