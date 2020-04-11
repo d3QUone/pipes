@@ -16,9 +16,6 @@ jobs:
       - name: Set timezone
         run: sudo timedatectl set-timezone Europe/Moscow
 
-      - name: Debug local git
-        run: make debug
-
       - name: Update README localy
         run: make update
 
@@ -27,9 +24,11 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add README.md
-          git commit -m "Auto add changes #${{ github.run_number }}"
+          git commit -m "Auto run ${{ github.run_number }}"
+        if: success()
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+        if: success()
