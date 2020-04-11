@@ -25,17 +25,29 @@ fi
 DIFF=$(diff ${LAST_FILE} ${TEMP_FILE} > /dev/null 2>&1)
 DIFF_ERROR=$?
 
+# Вот тут есть нюанс с exit-кодами: даже если произошла ошибка,
+# то возвращаем всё равно 0, т.к. иначе ``workflow`` упадёт.
 if [ ${DIFF_ERROR} -eq 2 ]; then
     echo "unknown diff DIFF_ERROR, exit"
-    exit 2
+    exit 0
 elif [ ${DIFF_ERROR} -eq 1 ]; then
     # Есть различия
     echo "ok, updating..."
 else
     # Вернуть ошибку если ничего не изменилось
     echo "no changes, exit"
-    exit 1
+    exit 0
 fi
 
 # Обновить состояние
 cat ${TEMP_FILE} > ${LAST_FILE}
+
+# Обновить текущий README
+DATE=$(date '+%Y-%m-%d %H:%M:%S')
+COMMITS_COUNT=$(git rev-list --count HEAD | bc)
+
+# Собрать готовый файл
+cat base_README.md > README.md
+printf "## Последнее обновление ${DATE}\n\n" >> README.md
+printf "Всего коммитов: ${COMMITS_COUNT}\n\n" >> README.md
+cat last_run.md >> README.md

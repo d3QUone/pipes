@@ -3,6 +3,8 @@ name: Worker
 on:
   schedule:
   - cron: "*/5 * * * *"
+  issues:
+    types: [opened, closed, reopened]
 
 jobs:
   update_myself:
@@ -24,7 +26,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add README.md last_run.md
-          git commit -m "Auto run ${{ github.run_number }}"
+          git commit -m "Auto run ${{ github.run_number }}" || echo "Nothing changed"
         if: success()
 
       - name: Push changes
